@@ -130,6 +130,16 @@ export default class VideoPlayer extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.video.uri == this.props.video.uri && nextProps.autoplay == this.props.autoplay) return;
+    if (nextProps.autoplay == false) {
+      this.setState({
+        isPlaying: nextProps.autoplay
+      });
+      this.showControls();
+    }
+  }
+
   onLayout(event) {
     const { width } = event.nativeEvent.layout;
     this.setState({
