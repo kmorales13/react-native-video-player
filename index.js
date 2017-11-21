@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Platform, StyleSheet, TouchableOpacity, View, ViewPropTypes, NativeModules } from 'react-native';
+import { Image, ImageBackground, Platform, StyleSheet, TouchableOpacity, View, ViewPropTypes, NativeModules } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Video from 'react-native-video';
 const styles = StyleSheet.create({
@@ -327,7 +327,7 @@ export default class VideoPlayer extends Component {
   renderThumbnail() {
     const { thumbnail, style, customStyles, ...props } = this.props;
     return (
-      <Image
+      <ImageBackground
         {...props}
         style={[
           styles.thumbnail,
@@ -338,7 +338,7 @@ export default class VideoPlayer extends Component {
         source={thumbnail}
       >
         {this.renderStartButton()}
-      </Image>
+      </ImageBackground>
     );
   }
 
@@ -457,8 +457,8 @@ export default class VideoPlayer extends Component {
             { marginTop: -this.getSizeStyles().height },
           ]}
         >
-          <TouchableOpacity 
-            style={styles.overlayButton} 
+          <TouchableOpacity
+            style={styles.overlayButton}
             onPress={() => {
               this.showControls();
               if (pauseOnPress)
@@ -467,7 +467,7 @@ export default class VideoPlayer extends Component {
             onLongPress={() => {
               if (fullScreenOnLongPress && Platform.OS !== 'android')
                 this.onToggleFullScreen();
-            }} 
+            }}
           />
         </View>
         {((!this.state.isPlaying) || this.state.isControlsVisible)
