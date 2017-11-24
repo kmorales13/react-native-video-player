@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Image, ImageBackground, Platform, StyleSheet, TouchableOpacity, View, ViewPropTypes, NativeModules } from 'react-native';
+import { Image, ImageBackground, Platform, StyleSheet, TouchableOpacity, View, ViewPropTypes, NativeModules, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Video from 'react-native-video';
 const styles = StyleSheet.create({
@@ -27,6 +27,13 @@ const styles = StyleSheet.create({
   },
   video: Platform.Version >= 24 ? {} : {
     backgroundColor: 'black',
+  },
+  buffering: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
   },
   controls: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -61,7 +68,7 @@ const styles = StyleSheet.create({
   },
   seekBarProgress: {
     height: 3,
-    backgroundColor: '#F00',
+    backgroundColor: '#ec9338',
   },
   seekBarKnob: {
     width: 20,
@@ -69,7 +76,7 @@ const styles = StyleSheet.create({
     marginHorizontal: -8,
     marginVertical: -10,
     borderRadius: 10,
-    backgroundColor: '#F00',
+    backgroundColor: '#ec9338',
     transform: [{ scale: 0.8 }],
     zIndex: 1,
   },
@@ -93,7 +100,7 @@ export default class VideoPlayer extends Component {
       progress: 0,
       isMuted: props.defaultMuted,
       isControlsVisible: !props.hideControlsOnStart,
-      duration: 0,
+      duration: -1,
       isSeeking: false,
     };
 
@@ -164,7 +171,7 @@ export default class VideoPlayer extends Component {
       this.props.onProgress(event);
     }
     this.setState({
-      progress: event.currentTime / (this.props.duration || this.state.duration),
+      progress: event.currentTime / (this.props.duration || this.state.duration)
     });
   }
 
@@ -461,6 +468,9 @@ export default class VideoPlayer extends Component {
           source={video}
           resizeMode={resizeMode}
         />
+        {(this.state.duration < 0 && this.state.isPlaying) && (
+          <ActivityIndicator style={styles.buffering} size={'large'} color={"#ec9338"} />
+        )}
         <View
           style={[
             this.getSizeStyles(),
