@@ -66,12 +66,11 @@ All other props are passed to the react-native-video component.
 ## Future features
 
 - [X] Make seek bar seekable.
-- [x] Make player customizable.
-- [ ] Add volume control
-- [X] Add fullscreen button
-- [ ] Add loader
-- [ ] Add video duration/play time
-- [ ] Add loader
+- [X] Make player customizable.
+- [X] Add fullscreen button.
+- [X] Add buffer indicator.
+- [ ] Add video duration/play time.
+- [ ] Add volume control.
 
 ## Setting up fullscreen on Android
 
