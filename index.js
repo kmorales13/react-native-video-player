@@ -155,6 +155,11 @@ export default class VideoPlayer extends Component {
   }
 
   onStartPress() {
+
+    if (this.props.onStart) {
+      this.props.onStart();
+    }
+
     this.setState({
       isPlaying: true,
       isStarted: true,
@@ -202,6 +207,11 @@ export default class VideoPlayer extends Component {
   }
 
   onPlayPress() {
+
+    if (this.props.onPlayPress) {
+      this.props.onPlayPress();
+    }
+
     this.setState({
       isPlaying: !this.state.isPlaying,
     });
